@@ -1,0 +1,119 @@
+<!--#
+ @version 0.3 (auto-set)
+#-->
+<!-- table chat search -->
+
+[#if NOT_LOGGED#]
+[#if MOBILE!="1"#]
+<p>
+<#LANG_PLEASE_LOGIN#>
+</p>
+[#endif MOBILE#]
+[#else#]
+
+<style>
+.chat
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.chat li
+{
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted #B3A9A9;
+}
+
+.chat li.left .chat-body
+{
+    margin-left: 60px;
+}
+
+.chat li.right .chat-body
+{
+    margin-right: 60px;
+}
+
+
+.chat li .chat-body p
+{
+    margin: 0;
+    color: #777777;
+}
+
+.panel .slidedown .glyphicon, .chat .glyphicon
+{
+    margin-right: 5px;
+}
+
+
+
+</style>
+
+				<form action="?" name="frmShoutBoxMsg" method="get" style="margin:0px" onSubmit='return false;'>
+                    <div class="input-group">
+                        <input name="message" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default btn-sm" name="submit" onClick="return sendShoutMessage();">
+                                <#LANG_SEND#></button>
+                        </span>
+                    </div>
+				</form>
+<p>
+[#endif#]
+<!-- results -->
+		<div id="chatContent">
+            <div class="panel-collapse collapse" id="collapseOne">
+                <div class="panel-body">
+[#if TXT_DATA!=""#][#TXT_DATA#][#else#]<#LANG_LOADING#>...[#endif#]
+				</div>
+			</div>
+		</div>
+<!-- / results -->
+
+<script language="javascript">
+
+var shoutTimer;
+
+ function updateChatContent() {
+  clearTimeout(shoutTimer);
+
+  var url="<#ROOTHTML#>popup/app_chatbox.html?";
+
+   url=url+'&limit=<#LIMIT#>&getdata=1[#if REVERSE="1"#]&reverse=1[#endif#]';
+   $.ajax({
+    url: url,
+    }).done(function(data) { 
+     if (data!='') {
+      $('#chatContent').html(data);
+     }
+    });
+
+  [#if (NOT_LOGGED!="1") || (MOBILE=="1")#]
+  shoutTimer=setTimeout("updateChatContent('', '');", 10000);
+  [#endif NOT_LOGGED#]
+ }
+
+ function sendShoutMessage() {
+  if (document.frmShoutBoxMsg.message.value == '') return false; 
+  var msg=URLencode(document.frmShoutBoxMsg.message.value);
+  document.frmShoutBoxMsg.message.value='';
+  var url="<#ROOTHTML#>popup/app_chatbox.html?";
+  url=url+'&limit=<#LIMIT#>&msg='+msg;
+  $.ajax({
+   url: url,
+   }).done(function(data) { 
+    if (data!='OK' && data!='') {
+     $('#chatContent').html(data);
+    }
+   });
+  return false;
+ }
+</script>
+
+
+<script language="javascript">
+ updateChatContent();
+</script>
