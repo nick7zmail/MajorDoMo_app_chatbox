@@ -223,7 +223,7 @@ function usual(&$out) {
   parent::install($parent_name);
   $this->getConfig();
   if ($this->config['AVATAR']=="") {
-	  $this->config['AVATAR'] = "_alice.png"
+	  $this->config['AVATAR'] = "_alice.png";
 	  $this->saveConfig();
   }
  }
