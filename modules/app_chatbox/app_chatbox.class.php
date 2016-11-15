@@ -146,11 +146,31 @@ function run() {
 * @access public
 */
 function admin(&$out) {
+$this->getConfig();
+$out['AVATAR']=$this->config['AVATAR'];
+$out['COLOR']=$this->config['COLOR'];
+global $session;
+global $color;
+global $avatar;
+global $avatar_name;
+   if ($avatar!='') {
+    if ($out['AVATAR']!='') {
+     @unlink(ROOT.'cms/avatars/'.$out['AVATAR']);
+    }
+    $out['AVATAR']='_'.$avatar_name;
+    copy($avatar, ROOT.'cms/avatars/'.$out['AVATAR']);
+   } 
 
- global $session;
-
- if (isset($this->data_source) && !$_GET['data_source'] && !$_POST['data_source']) {
-  $out['SET_DATASOURCE']=1;
+if ($this->view_mode=='update_settings') {
+   if ($avatar!='') {$this->config['AVATAR']=$out['AVATAR'];}
+   $this->config['COLOR']=$color;
+   $this->saveConfig();
+   $this->redirect("?");
+ }
+ 
+ 
+if (isset($this->data_source) && !$_GET['data_source'] && !$_POST['data_source']) {
+  $out['SET_DATASOURCE']=1; 
  }
 
 
@@ -201,6 +221,11 @@ function usual(&$out) {
 */
  function install($parent_name="") {
   parent::install($parent_name);
+  $this->getConfig();
+  if ($this->config['AVATAR']=="") {
+	  $this->config['AVATAR'] = "_alice.png"
+	  $this->saveConfig();
+  }
  }
 /**
 * Uninstall

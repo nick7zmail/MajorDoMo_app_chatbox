@@ -34,6 +34,23 @@
 								[#TXT_ADMIN#]
 							</div>
 						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								Настройки
+							</div>
+							<div class="panel-body">
+							<form action="?" method="post" enctype="multipart/form-data" name="frmEdit" class="form-horizontal">
+								Аватар
+								[#if AVATAR!=""#]<img src="<#ROOTHTML#>cms/avatars/[#AVATAR#]" border="0" height="50"><br>[#endif#]
+								<input type="file" class="form-control" name="avatar"><br>
+								Цвет<br>
+								<input type="text" name="color"  class="form-control" value="[#COLOR#]" class="input"><br><br>
+									<button type="submit" name="subm" value="Submit" class="btn btn-primary"><#LANG_SUBMIT#></button>
+									<input type="hidden" name="view_mode" value="update_settings">
+									<input type="hidden" name="mode" value="update">
+							</form>
+							</div>
+						</div>
 					</div>
 
 

@@ -7,7 +7,7 @@
   global $msg;
   global $getdata;
   global $clear;
-
+	$this->getConfig();
 //#######################################################################################################
   if ($this->action=='admin' && $clear) {
    SQLExec("DELETE FROM shouts");
@@ -97,7 +97,8 @@
     }
     if ($res[$i]['MEMBER_ID']==0) {
      $res[$i]['NAME']='Алиса';
-     $res[$i]['AVATAR']='10_14045.png';
+     $res[$i]['AVATAR']=$this->config['AVATAR'];
+	 $res[$i]['COLOR']=$this->config['COLOR'];
 	 $left_right="class=\"left clearfix\"";
 	 $img_left_right="<span class=\"chat-img pull-left\">";
 	 $time_block="<small class=\"pull-right text-muted\">";
@@ -132,7 +133,7 @@
 							</small>";
 
 	$txtdata.="			   
-							<strong ".$nic_block."> ".$res[$i]['NAME']."
+							<strong style='color:".$res[$i]['COLOR'].";'".$nic_block."> ".$res[$i]['NAME']."
 							</strong>
 						</div>";							
 	$txtdata.="			
