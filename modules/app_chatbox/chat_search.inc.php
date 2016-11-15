@@ -137,7 +137,7 @@
 							</strong>
 						</div>";							
 	$txtdata.="			
-						<h5>".$res[$i]['COLOR']." ".$lr." ".nl2br($res[$i]['MESSAGE'])."
+						<h5 style='color:".$res[$i]['COLOR']."'> ".$lr." ".nl2br($res[$i]['MESSAGE'])."
 						</h5>
                     </div>
                     </li>
