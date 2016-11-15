@@ -82,6 +82,11 @@
    $out['MOBILE']=1;
   }
 
+if (defined('SETTINGS_GENERAL_ALICE_NAME') && SETTINGS_GENERAL_ALICE_NAME!='') {
+ $comp_name=SETTINGS_GENERAL_ALICE_NAME;
+} else {
+ $comp_name=LANG_DEFAULT_COMPUTER_NAME;
+}
 
   if ($res[0]['ID']) {
    $old_dt=$res[0]['DT'];
@@ -96,7 +101,7 @@
         $old_dt=$res[$i]['DT'];
     }
     if ($res[$i]['MEMBER_ID']==0) {
-     $res[$i]['NAME']='Алиса';
+     $res[$i]['NAME']=$comp_name;
      $res[$i]['AVATAR']=$this->config['AVATAR'];
 	 $res[$i]['COLOR']=$this->config['COLOR'];
 	 $left_right="class=\"left clearfix\"";
