@@ -29,7 +29,7 @@ DebMes('SAY FUNC: '.$ph);
         if (defined('SETTINGS_HOOK_BEFORE_SAY') && SETTINGS_HOOK_BEFORE_SAY!='') {
          eval(SETTINGS_HOOK_BEFORE_SAY);
         }
-        if ($level >= (int)getGlobal('minMsgLevel'))
+        if ($level <= (int)getGlobal('minMsgLevel'))
         { 
 
            if (!defined('SETTINGS_SPEAK_SIGNAL') || SETTINGS_SPEAK_SIGNAL=='1') {
