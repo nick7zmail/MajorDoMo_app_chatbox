@@ -82,6 +82,10 @@
    $out['MOBILE']=1;
   }
 
+  if ($this->light) {
+   $out['LIGHT']=1;
+  }
+
 if (defined('SETTINGS_GENERAL_ALICE_NAME') && SETTINGS_GENERAL_ALICE_NAME!='') {
  $comp_name=SETTINGS_GENERAL_ALICE_NAME;
 } else {
